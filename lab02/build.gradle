@@ -3,7 +3,7 @@ plugins {
 }
 apply plugin: 'java'
 ext {
-	javaMainClass = "gradleDemo.Demo"
+	javaMainClass = "gradleDemo.CSVDemo"
 }
 application {
 	mainClassName = javaMainClass
@@ -12,5 +12,5 @@ repositories {
 	mavenCentral()
 }
 dependencies {
-	compile group: 'commons-validator', name: 'commons-validator', version: '1.4.1'
+        compile group: 'commons-validator', name: 'commons-validator', version: '1.4.1'
 }
