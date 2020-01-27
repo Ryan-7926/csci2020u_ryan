@@ -1,0 +1,98 @@
+Assuming your in root directory in a particular directory name
+​
+you would want to issue a few commands
+​
+1. `mkdir -p src/main/java/gradleDemo`
+2. `touch src/main/java/gradleDemo/Demo.java`
+​
+Inside `Demo.java` put some simple code, eg like this one beloe
+​
+```java
+package gradleDemo;
+​
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println("Testing 1 2 3...");
+    }
+}
+```
+​
+Next is the `gradle.build` file.
+​
+1. `touch build.gradle`
+​
+Inside `build.gradle` put this code in
+​
+```gradle
+apply plugin: 'java'
+```
+​
+To see what new task has been added. type the terminal command
+1. `gradle task`
+2. To compile the class files type `gradle classes`
+​
+What if you want to run the class file?
+​
+Inside the `build.gradle`
+​
+```gradle
+plugins {
+    id "application"
+}
+​
+apply plugin: 'java'
+​
+ext {
+   javaMainClass = "gradleDemo.Demo"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+```
+​
+To add aditional Dependency, a few more line of code needs to be added to `build.gradle`. For this case we will use the validator dependency
+​
+```
+plugins {
+    id "application"
+}
+​
+apply plugin: 'java'
+​
+ext {
+   javaMainClass = "gradleDemo.Demo"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+​
+ repositories {
+    mavenCentral()
+ }
+​
+ dependencies {
+   compile group: 'commons-validator', name: 'commons-validator', version: '1.4.1'
+ }
+ ```
+​
+ Now lets head into the `Demo.java`
+​
+ ```java
+ package gradleDemo;
+​
+​
+public class Demo {
+   static final String cardNum = "4716841076742166";
+
+   public static void main(String[] args) {
+       CreditCardValidator validator = new CreditCardValidator(CreditCardValidator.AMEX + CreditCardValidator.VISA);
+       boolean valid = validator.isValid(cardNum);
+       System.out.println("Is the credit card number valid? " + valid);
+   }
+}
+​
+ ```
+​
+ Build it by running `gradle classes` and run it by `gradle run`

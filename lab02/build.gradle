@@ -1,16 +1,18 @@
 plugins {
-	id "application"
+    id 'application'
 }
+
 apply plugin: 'java'
-ext {
-	javaMainClass = "gradleDemo.CSVDemo"
-}
-application {
-	mainClassName = javaMainClass
-}
+
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
+
 dependencies {
-        compile group: 'commons-validator', name: 'commons-validator', version: '1.4.1'
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.4.1'
+    compile group: 'org.apache.commons', name: 'commons-csv', version: '1.7'
+}
+
+task application {
+    mainClassName = 'CSVDemo'
 }
