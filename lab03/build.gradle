@@ -1,0 +1,43 @@
+buildscript {
+  repositories {
+    flatDir dirs: 'proguard6.2.2/lib'
+  }
+  dependencies {
+    classpath ':proguard'
+  }
+}
+
+plugins {
+    id 'application'
+}
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.4.1'
+    compile group: 'org.apache.commons', name: 'commons-csv', version: '1.7'
+	compile 'org.apache.commons:commons-csv:1.5'	
+}
+
+task application {
+    mainClassName = 'lab03.CSVDemo'
+}
+task (minify, dependsOn: 'jar', type: proguard.gradle.ProGuardTask) {
+  configuration 'proguard.cfg'
+  injars 'build/libs/Lab03-1.0.jar'
+  outjars 'build/libs/Lab03-1.0.min.jar'
+}
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+  manifest {
+    attributes 'Main-Class': 'gradleDemo.demo',
+          'Implementation-Title': 'Gradle-Demo',
+          'Implementation-Version': version
+  }
+}

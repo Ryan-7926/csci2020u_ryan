@@ -1,0 +1,42 @@
+Currently, when we try to run the jar file, it will give you a missing manifest warning, you are gonna have to add a few more thing to the build file
+
+gradle
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+  manifest {
+    attributes 'Main-Class': 'gradleDemo.demo',
+          'Implementation-Title': 'Gradle-Demo',
+          'Implementation-Version': version
+  }
+}
+
+Now run `gradle jar`
+For this lab, you are required to use proguard. First download proguard, and it extract to the folder 
+We are then going to have to modify the build script to use proguard. This needs to be above the 
+
+plugin part
+buildscript {
+  repositories {
+    flatDir dirs: 'proguard6.2.2/lib'
+  }
+  dependencies {
+    classpath ':proguard'
+  }
+}
+
+and lastly, we would need to add a task to actually minify the code
+
+task (minify, dependsOn: 'jar', type: proguard.gradle.ProGuardTask) {
+  configuration 'proguard.cfg'
+  injars 'build/libs/Lab03.jar'
+  outjars 'build/libs/Lab03.min.jar'
+}
+
+We need to create a proguard.cfg file and place this inside it
+ -printmapping gradeDemo.proguard.map
+ -keep public class gradleDemo.Demo {
+	public static void main(java.lang.String[]);
+ }
+ -dontwarn
+Now run `gradle minify`
