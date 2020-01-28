@@ -23,21 +23,21 @@ dependencies {
 	compile 'org.apache.commons:commons-csv:1.5'	
 }
 
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+  manifest {
+    attributes 'Main-Class': 'lab03.CSVDemo',
+          'Implementation-Title': 'Gradle-Demo',
+          'Implementation-Version': version
+  }
+}
+
 task application {
     mainClassName = 'lab03.CSVDemo'
 }
 task (minify, dependsOn: 'jar', type: proguard.gradle.ProGuardTask) {
   configuration 'proguard.cfg'
-  injars 'build/libs/Lab03-1.0.jar'
-  outjars 'build/libs/Lab03-1.0.min.jar'
-}
-
-sourceCompatibility = 1.8
-version = '1.0'
-jar {
-  manifest {
-    attributes 'Main-Class': 'gradleDemo.demo',
-          'Implementation-Title': 'Gradle-Demo',
-          'Implementation-Version': version
-  }
+  injars 'build/libs/lab03-1.0.jar'
+  outjars 'build/libs/lab03-1.0.min.jar'
 }
