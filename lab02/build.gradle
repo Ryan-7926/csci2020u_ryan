@@ -14,5 +14,5 @@ dependencies {
 }
 
 task application {
-    mainClassName = 'CSVDemo'
+    mainClassName = 'gradleDemo.CSVDemo'
 }
