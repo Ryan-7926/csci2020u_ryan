@@ -14,8 +14,8 @@ jar {
 Now run `gradle jar`
 For this lab, you are required to use proguard. First download proguard, and it extract to the folder 
 We are then going to have to modify the build script to use proguard. This needs to be above the 
-
 plugin part
+
 buildscript {
   repositories {
     flatDir dirs: 'proguard6.2.2/lib'
