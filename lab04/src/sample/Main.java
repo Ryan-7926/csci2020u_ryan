@@ -67,7 +67,7 @@ public class Main extends Application {
         });
 
 
-        primaryStage.setScene(new Scene(pane,   500, 400));
+        primaryStage.setScene(new Scene(pane,500, 400));
         primaryStage.setTitle("Lab04");
         primaryStage.show();
     }
@@ -77,9 +77,5 @@ public class Main extends Application {
         launch(args);
     }
 
-//    public void register(){
-//        //TODO on click print four fields to the console
-//        System.out.print();
-//    }
 
 }
