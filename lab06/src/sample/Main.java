@@ -34,8 +34,6 @@ public class Main extends Application {
             Color.DARKSALMON, Color.LAWNGREEN, Color.PLUM
     };
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -52,15 +50,12 @@ public class Main extends Application {
             series1.getData().add(new XYChart.Data(String.valueOf(i), avgHousingPricesByYear[i]));
         }
 
-        bc.setStyle("-fx-bar-fill: GREEN;");
-
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Commercial Prices");
 
         for (int i = 0; i<avgHousingPricesByYear.length; i++) {
             series2.getData().add(new XYChart.Data(String.valueOf(i), avgCommercialPricesByYear[i]));
         }
-
 
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
@@ -77,23 +72,8 @@ public class Main extends Application {
         pane.add(bc,0,0);
         pane.add(chart, 1, 0);
 
-        double height= avgHousingPricesByYear[0];
-
-        for (int i = 1;i<avgHousingPricesByYear.length; i++) {
-            if (height<avgHousingPricesByYear[i]) {
-                height=avgHousingPricesByYear[i];
-            }
-            if (height<avgCommercialPricesByYear[i]) {
-                height=avgCommercialPricesByYear[i];
-            }
-        }
-        height = (height%1000)+100;
-
-
-
-
         primaryStage.setTitle("Lab 06");
-        Scene scene = new Scene(pane,height*3,height);
+        Scene scene = new Scene(pane);
         scene.getStylesheets().add("sample/styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();
