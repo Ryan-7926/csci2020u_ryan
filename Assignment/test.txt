@@ -1,1 +1,2 @@
-/home/ryan/Documents/Software Systems/csci2020u_ryan/test.txt
+This is a text file used to test the histogram program.
+/home/ryan/Documents/Software Systems/csci2020u_ryan/Assignment/test.txt
