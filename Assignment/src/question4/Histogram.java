@@ -14,8 +14,6 @@ package question4;
  *
  */
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -24,13 +22,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.concurrent.Flow;
 
 public class Histogram extends Application {
 
@@ -52,7 +47,7 @@ public class Histogram extends Application {
         xAxis.setLabel("Letter");
         yAxis.setLabel("Occurrence");
 
-        XYChart.Series series1 = new XYChart.Series();
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         series1.setName("Letters");
         String[] alphabet ={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
 
@@ -89,6 +84,7 @@ public class Histogram extends Application {
                 //run loop at least once ot receive input and if there is more that the scanner pick ups keep looping
                 do {
                     //get input
+                    assert input != null;
                     String characters = input.next();
                     //loop through the string to count each letter
                     for (int i = 0; i < characters.length(); i++) {
@@ -112,7 +108,7 @@ public class Histogram extends Application {
 
                 //add data to the series
                 for (int x=0; x<26; x++) {
-                    series1.getData().add(new XYChart.Data(alphabet[x], numOccurr[x]));
+                    series1.getData().add(new XYChart.Data<>(alphabet[x], numOccurr[x]));
                 }
                 //add series to the chart
                 histogram.getData().addAll(series1);
