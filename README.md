@@ -1,4 +1,4 @@
-# csci2020u_rya
+# csci2020u_ryan
 
-This repo is used for Software Systems Dev. & Integ.(CSCI-2020U) labs
+This repo is used for Software Systems Dev. & Integ.(CSCI-2020U)
 
