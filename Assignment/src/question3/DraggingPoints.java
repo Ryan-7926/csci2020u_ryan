@@ -140,6 +140,7 @@ public class DraggingPoints extends Application {
         //final window setup and display
         primaryStage.setTitle("Dragging Points");
         Scene scene = new Scene(mainPane);
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
