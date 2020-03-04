@@ -45,8 +45,8 @@ public class DraggingPoints extends Application {
 
         //initialize arrays for the coordinates of the points
         Random rand = new Random();
-        float[] xPoints = new float[3];
-        float[] yPoints = new float[3];
+        double[] xPoints = new double[3];
+        double[] yPoints = new double[3];
 
         //loop through the points and create them
         for (int i = 0; i<3; i++) {
@@ -55,7 +55,7 @@ public class DraggingPoints extends Application {
             if (rand.nextBoolean()) {xPoints[i]*=-1;}
 
             //calculate y-coordinate based on x-coordinate
-            yPoints[i] = (float) sqrt(radius*radius - xPoints[i]*xPoints[i]);
+            yPoints[i] = sqrt(radius*radius - xPoints[i]*xPoints[i]);
 
             //randomize y (+) or (-)
             if (rand.nextBoolean()) {
@@ -68,7 +68,7 @@ public class DraggingPoints extends Application {
 
         }
         //initialize and calculate array for angles
-        float[] angles = calculateAngles(xPoints,yPoints);
+        double[] angles = calculateAngles(xPoints,yPoints);
         //make points
         Circle[] points = {new Circle(xPoints[0],yPoints[0],10,Color.RED),
                         new Circle(xPoints[1],yPoints[1],10,Color.YELLOW),
@@ -92,10 +92,10 @@ public class DraggingPoints extends Application {
             points[i].setOnMouseDragged(e -> {
                 //calculate x and y based on angle from (250,250) to cursor
                 //angle = arctan(x-250/y-250)
-                float angle = (float) atan2(e.getY()-250,e.getX()-250);
+                double angle = atan2(e.getY()-250,e.getX()-250);
 
-                xPoints[finalI]= (float) (radius*cos(angle))+250;
-                yPoints[finalI]= (float) (radius*sin(angle))+250;
+                xPoints[finalI]= (radius*cos(angle))+250;
+                yPoints[finalI]= (radius*sin(angle))+250;
                 //set point positions
                 points[finalI].setCenterX(xPoints[finalI]);
                 points[finalI].setCenterY(yPoints[finalI]);
@@ -107,13 +107,13 @@ public class DraggingPoints extends Application {
                 lines[(finalI+2)%3].setEndY(yPoints[finalI]);
 
                 //calculate angle of connecting lines
-                float a = (float) hypot(xPoints[1]-xPoints[2],yPoints[1]-yPoints[2]);
-                float b = (float) hypot(xPoints[0]-xPoints[2],yPoints[0]-yPoints[2]);
-                float c = (float) hypot(xPoints[1]-xPoints[0],yPoints[1]-yPoints[0]);
+                double a = hypot(xPoints[1]-xPoints[2],yPoints[1]-yPoints[2]);
+                double b = hypot(xPoints[0]-xPoints[2],yPoints[0]-yPoints[2]);
+                double c = hypot(xPoints[1]-xPoints[0],yPoints[1]-yPoints[0]);
 
-                angles[0] = (float) acos((a*a -b*b - c*c)/(-2*b*c));
-                angles[1] = (float) acos((b*b -a*a - c*c)/(-2*a*c));
-                angles[2] = (float) acos((c*c - a*a -b*b)/(-2*a*b));
+                angles[0] = acos((a*a -b*b - c*c)/(-2*b*c));
+                angles[1] = acos((b*b -a*a - c*c)/(-2*a*c));
+                angles[2] = acos((c*c - a*a -b*b)/(-2*a*b));
                 //display updated angles
                 for (int j=0;j<3;j++) {
                     anglesTxt[j].setText(String.format("%.1f", toDegrees(angles[j])));
@@ -145,20 +145,20 @@ public class DraggingPoints extends Application {
         primaryStage.show();
     }
     /*
-     * This method takes in two float arrays of x and y coordinates and calculates the angles between them,
+     * This method takes in two double arrays of x and y coordinates and calculates the angles between them,
      * then it returns an array of the calculated angles
      */
-    public float[] calculateAngles(float[] x,float[] y) {
+    public double[] calculateAngles(double[] x,double[] y) {
         //calculate hypotenuse of angles
-        float a = (float) hypot(x[1]-x[2],y[1]-y[2]);
-        float b = (float) hypot(x[0]-x[2],y[0]-y[2]);
-        float c = (float) hypot(x[1]-x[0],y[1]-y[0]);
+        double a = hypot(x[1]-x[2],y[1]-y[2]);
+        double b = hypot(x[0]-x[2],y[0]-y[2]);
+        double c = hypot(x[1]-x[0],y[1]-y[0]);
 
-        float[] angle = new float[3];
+        double[] angle = new double[3];
         //formula given in assignment document to calculate angles
-        angle[0] = (float) acos((a*a -b*b - c*c)/(-2*b*c));
-        angle[1] = (float) acos((b*b -a*a - c*c)/(-2*a*c));
-        angle[2] = (float) acos((c*c - a*a -b*b)/(-2*a*b));
+        angle[0] = acos((a*a -b*b - c*c)/(-2*b*c));
+        angle[1] = acos((b*b -a*a - c*c)/(-2*a*c));
+        angle[2] = acos((c*c - a*a -b*b)/(-2*a*b));
         return angle;
     }
 }
