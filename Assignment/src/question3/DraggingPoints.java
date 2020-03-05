@@ -51,7 +51,7 @@ public class DraggingPoints extends Application {
         //loop through the points and create them
         for (int i = 0; i<3; i++) {
             //generate random x-coordinate
-            xPoints[i] = rand.nextFloat() * (radius);
+            xPoints[i] = rand.nextDouble() * (radius);
             if (rand.nextBoolean()) {xPoints[i]*=-1;}
 
             //calculate y-coordinate based on x-coordinate
