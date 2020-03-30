@@ -16,33 +16,32 @@ import java.net.Socket;
 import java.util.Date;
 
 public class Server extends Application {
-    private TextArea ta = new TextArea();
-
+    TextArea chatArea = new TextArea();
     private int clientNo = 0;
 
     @Override
     public void start(Stage primaryStage) {
-        VBox root = new VBox(10);
-        root.setPadding(new Insets(20,20,20,20));
+        VBox pane = new VBox(10);
+        pane.setPadding(new Insets(20,20,20,20));
 
-        ta.setWrapText(true);
-        ta.setMinWidth(300);
-        ta.setMinHeight(100);
+        chatArea.setWrapText(true);
+        chatArea.setMinWidth(300);
+        chatArea.setMinHeight(100);
 
         Button exit = new Button("Exit");
         exit.setOnMouseReleased(e -> System.exit(0));
 
-        root.getChildren().addAll(ta, exit);
+        pane.getChildren().addAll(chatArea, exit);
 
         primaryStage.setTitle("Server");
-        primaryStage.setScene(new Scene(root, 400, 275));
+        primaryStage.setScene(new Scene(pane, 400, 275));
         primaryStage.show();
 
         new Thread( () -> {
             try {
                 // Create a server socket
                 ServerSocket serverSocket = new ServerSocket(8000);
-                ta.appendText("Chat server started at "
+                chatArea.appendText("Chat server started at "
                         + new Date() + '\n');
 
                 while (true) {
@@ -54,7 +53,7 @@ public class Server extends Application {
 
                     Platform.runLater( () -> {
                         // Display the client number
-                        ta.appendText("User " + clientNo +
+                        chatArea.appendText("User " + clientNo +
                                 " joined at " + new Date() + '\n');
 
                     });
@@ -90,10 +89,10 @@ public class Server extends Application {
                 // Continuously serve the client
                 while (true) {
                     // Receive radius from the client
-                    String log = inputFromClient.readUTF();
+                    String message = inputFromClient.readUTF();
 
                     Platform.runLater(() -> {
-                        ta.appendText(log);
+                        chatArea.appendText(message);
                     });
                 }
             }

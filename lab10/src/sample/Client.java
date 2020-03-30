@@ -23,18 +23,18 @@ public class Client extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        VBox root = new VBox(10);
-        root.setPadding(new Insets(20,20,20,20));
+        VBox pane = new VBox(10);
+        pane.setPadding(new Insets(20,20,20,20));
 
-        HBox uBox = new HBox(10);
+        HBox userPane = new HBox(10);
         Label uName = new Label("Username");
         username = new TextField();
-        uBox.getChildren().addAll(uName, username);
+        userPane.getChildren().addAll(uName, username);
 
-        HBox mBox = new HBox(10);
+        HBox msgPane = new HBox(10);
         Label msg = new Label("Message");
         message = new TextField();
-        mBox.getChildren().addAll(msg, message);
+        msgPane.getChildren().addAll(msg, message);
 
         Button send = new Button("Send");
         send.setOnMouseReleased(e -> send());
@@ -42,10 +42,10 @@ public class Client extends Application {
         Button exit = new Button("Exit");
         exit.setOnMouseReleased(e -> System.exit(0));
 
-        root.getChildren().addAll(uBox, mBox, send, exit);
+        pane.getChildren().addAll(userPane, msgPane, send, exit);
 
         primaryStage.setTitle("Client");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(pane));
         primaryStage.show();
 
         try {
@@ -62,7 +62,7 @@ public class Client extends Application {
         }
     }
 
-    private static String log() {
+    private static String message() {
         if(username.getText() != null && message.getText() != null) {
             return username.getText() + ": " + message.getText() + "\n";
         }
@@ -82,8 +82,8 @@ public class Client extends Application {
 
     private static void send() {
         try {
-            //Send the log to the Server
-            toServer.writeUTF(log());
+            //Send the message to the Server
+            toServer.writeUTF(message());
             toServer.flush();
             message.setText("");
         } catch (IOException ex) {
